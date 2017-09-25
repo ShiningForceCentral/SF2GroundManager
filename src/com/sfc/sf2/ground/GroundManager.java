@@ -21,7 +21,7 @@ public class GroundManager {
     private PaletteManager paletteManager = new PaletteManager();
     private GraphicsManager graphicsManager = new GraphicsManager();
     private Tile[] tiles;
-    private Ground[] grounds;
+    private Ground ground;
 
     public Tile[] getTiles() {
         return tiles;
@@ -31,20 +31,17 @@ public class GroundManager {
         this.tiles = tiles;
     }
        
-    public void importDisassembly(String graphicsBasepath){
+    public void importDisassembly(String basePalettePath, String palettePath, String graphicsPath){
         System.out.println("com.sfc.sf2.ground.GroundManager.importDisassembly() - Importing disassembly ...");
-        grounds = DisassemblyManager.importDisassembly(graphicsBasepath);
-        tiles = new Tile[grounds.length*32*12];
-        for(int i=0;i<grounds.length;i++){
-            System.arraycopy(grounds[i].getTiles(), 0, tiles, i*32*12, 32*12);
-        }
+        ground = DisassemblyManager.importDisassembly(basePalettePath, palettePath, graphicsPath);
+        tiles = ground.getTiles();
         graphicsManager.setTiles(tiles);
         System.out.println("com.sfc.sf2.ground.GroundManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void exportDisassembly(String basepath){
+    public void exportDisassembly(String palettePath, String graphicsPath){
         System.out.println("com.sfc.sf2.ground.GroundManager.importDisassembly() - Exporting disassembly ...");
-        DisassemblyManager.exportDisassembly(grounds, basepath);
+        DisassemblyManager.exportDisassembly(ground, palettePath, graphicsPath);
         System.out.println("com.sfc.sf2.ground.GroundManager.importDisassembly() - Disassembly exported.");        
     }   
     
@@ -63,18 +60,15 @@ public class GroundManager {
     
     public void importPng(String basepath){
         System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - Importing PNG ...");
-        grounds = PngManager.importPng(basepath);
-        tiles = new Tile[grounds.length*384];
-        for(int i=0;i<grounds.length;i++){
-            System.arraycopy(grounds[i].getTiles(), 0, tiles, i*384, 384);
-        }
+        ground = PngManager.importPng(basepath);
+        tiles = ground.getTiles();
         graphicsManager.setTiles(tiles);
         System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - PNG imported.");
     }
     
-    public void exportPng(String basepath){
+    public void exportPng(String filepath){
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - Exporting PNG ...");
-        PngManager.exportPng(grounds, basepath);
+        PngManager.exportPng(ground, filepath);
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - PNG exported.");       
     }
 }

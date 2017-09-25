@@ -133,7 +133,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSplitPane2" alignment="0" pref="328" max="32767" attributes="0"/>
+                      <Component id="jSplitPane2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -183,7 +183,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="303" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="305" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -230,10 +230,9 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jPanel3" min="-2" pref="158" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPanel5" min="-2" pref="157" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel3" pref="177" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel5" min="-2" pref="145" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -294,17 +293,24 @@
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="jButton15" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jTextField10" pref="306" max="32767" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jButton16" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel2" max="32767" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="jButton18" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jTextField10" pref="313" max="32767" attributes="0"/>
+                                                      <Component id="jTextField12" pref="311" max="32767" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jButton16" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jButton19" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -314,6 +320,14 @@
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                                      <Component id="jTextField12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jButton19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jTextField9" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -326,11 +340,11 @@
                                                   <Component id="jButton16" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel2" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -372,7 +386,7 @@
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel12">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="Palette file :"/>
+                                        <Property name="text" type="java.lang.String" value="Graphics file :"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JTextField" name="jTextField10">
@@ -389,6 +403,27 @@
                                       </Properties>
                                       <Events>
                                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton16ActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="jLabel13">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Base palette&lt;br&gt;file :&lt;/html&gt;"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="jTextField12">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="..\u005cplt_battlescenebasepalette.bin" containsInvalidXMLChars="true"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField12ActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="jButton19">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="File..."/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton19ActionPerformed"/>
                                       </Events>
                                     </Component>
                                   </SubComponents>
@@ -436,10 +471,12 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton12" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jButton12" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel3" max="32767" attributes="0"/>
                                               </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -476,7 +513,7 @@
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel3">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select a PNG file.&lt;br&gt;Required PNG Format : 4BPP / 16 indexed colors.&lt;br&gt;Only first 4 colors are used.&lt;/html&gt;"/>
+                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select a PNG file.&lt;br&gt;Required PNG Format : 4BPP / 16 indexed colors.&lt;br&gt;Transparency color at index 0.&lt;br&gt;Ground-specific colors at indexes 3,4 and 8.&lt;br&gt;(yeah, the game uses the battle scene base palette and puts ground colors at those indexes)&lt;/html&gt;"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -509,7 +546,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTabbedPane2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTabbedPane2" alignment="0" pref="122" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -565,18 +602,21 @@
                                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButton20" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jTextField14" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButton21" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel1" max="32767" attributes="0"/>
+                                                      <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -592,7 +632,7 @@
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel1">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select new target files.&lt;br&gt;Palette file optional.&lt;/html&gt;"/>
+                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select new target files. Palette file optional.&lt;/html&gt;"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel14">
@@ -679,7 +719,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jButton13" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                           </Group>
@@ -718,7 +758,7 @@
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel9">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select a new target PNG file.&lt;br/&gt; This export will create a new file.&lt;br&gt;Exported PNG Format : 4BPP / 16 indexed colors.&lt;br&gt;Only first 4 colors are used.&lt;br&gt;Transparent color at index 0.&lt;/html&gt;"/>
+                                        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select a new target PNG file.&lt;br&gt;Exported PNG Format : 4BPP / 16 indexed colors.&lt;br&gt;Transparency color at index 0. Ground-specific colors at indexes 3,4 and 8.&lt;/html&gt;"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>

@@ -31,34 +31,26 @@ import javax.imageio.ImageIO;
  */
 public class PngManager {
     
-    private static final String BASE_FILENAME = "groundXX.png";
-    
-    public static Ground[] importPng(String basepath){
-        System.out.println("com.sfc.sf2.ground.io.PngManager.importPng() - Importing PNG files ...");
-        List<Ground> grounds = new ArrayList();
+    public static Ground importPng(String filepath){
+        System.out.println("com.sfc.sf2.ground.io.PngManager.importPng() - Importing PNG file ...");
+        Ground ground = null;
         try{
-            for(int i=0;i<256;i++){
-                String index = String.format("%02d", i);
-                String filePath = basepath + BASE_FILENAME.replace("XX.png", index+".png");
-                Tile[] tiles = loadPngFile(filePath);
+                Tile[] tiles = loadPngFile(filepath);
                 if(tiles!=null){
-                    if(tiles.length==384){
-                       Ground ground = new Ground();
-                       ground.setIndex(i);
+                    if(tiles.length==48){
+                       ground = new Ground();
                        System.arraycopy(tiles, 0, tiles, 0, tiles.length);                   
                        ground.setTiles(tiles);
-                       grounds.add(ground);
-                       System.out.println("Created Ground " + i + " with " + tiles.length + " tiles.");                       
+                       System.out.println("Created Ground with " + tiles.length + " tiles.");                       
                     }else{
-                        System.out.println("Could not create Ground " + i + " because of wrong length : tiles=" + tiles.length);
+                        System.out.println("Could not create Ground because of wrong length : tiles=" + tiles.length);
                     }
                 }
-            }
         }catch(Exception e){
              System.err.println("com.sfc.sf2.ground.io.PngManager.importPng() - Error while parsing graphics data : "+e);
         }        
-        System.out.println("com.sfc.sf2.ground.io.PngManager.importPng() - PNG files imported.");
-        return grounds.toArray(new Ground[grounds.size()]);                
+        System.out.println("com.sfc.sf2.ground.io.PngManager.importPng() - PNG file imported.");
+        return ground;                
     }
     
     
@@ -83,13 +75,11 @@ public class PngManager {
                     }else{
                         tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
                         int tileId = 0;
-                        for(int screenHalf=0;screenHalf<2;screenHalf++){
-                            for(int blockColumn=0;blockColumn<4;blockColumn++){
-                                for(int blockLine=0;blockLine<3;blockLine++){
+                            for(int blockColumn=0;blockColumn<3;blockColumn++){
                                     for(int tileColumn=0;tileColumn<4;tileColumn++){
                                         for(int tileLine=0;tileLine<4;tileLine++){
-                                            int x = (screenHalf*16+blockColumn*4+tileColumn)*8;
-                                            int y = (blockLine*4+tileLine)*8;
+                                            int x = (blockColumn*4+tileColumn)*8;
+                                            int y = (tileLine)*8;
                                             //System.out.println("Building tile from coordinates "+x+":"+y);
                                             Tile tile = new Tile();
                                             tile.setId(tileId);
@@ -110,9 +100,7 @@ public class PngManager {
                                             tileId++;
                                         }
                                     }
-                                }
-                            }
-                        }                        
+                            }                  
 
                     }
                 }                
@@ -142,14 +130,10 @@ public class PngManager {
     }
     
     
-    public static void exportPng(Ground[] grounds, String basepath){
+    public static void exportPng(Ground ground, String filepath){
         try {
             //System.out.println("com.sfc.sf2.ground.io.PngManager.exportPng() - Exporting PNG files ...");
-            for(Ground ground : grounds){
-                String index = String.format("%02d", ground.getIndex());
-                String filePath = basepath + System.getProperty("file.separator") + BASE_FILENAME.replace("XX.png", index+".png");
-                writePngFile(ground.getTiles(),filePath);                
-            }
+            writePngFile(ground.getTiles(),filepath);    
             //System.out.println("com.sfc.sf2.ground.io.PngManager.exportPng() - PNG files exported.");
         } catch (Exception ex) {
             Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,7 +145,7 @@ public class PngManager {
     public static void writePngFile(Tile[] tiles, String filepath){
         try {
             //System.out.println("com.sfc.sf2.ground.io.PngManager.exportPng() - Exporting PNG file ...");
-            BufferedImage image = GroundLayout.buildImage(tiles, 32, true);
+            BufferedImage image = GroundLayout.buildImage(tiles, 12, true);
             File outputfile = new File(filepath);
             //System.out.println("File path : "+outputfile.getAbsolutePath());
             ImageIO.write(image, "png", outputfile);
