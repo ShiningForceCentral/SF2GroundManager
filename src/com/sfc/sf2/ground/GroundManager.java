@@ -22,14 +22,6 @@ public class GroundManager {
     private GraphicsManager graphicsManager = new GraphicsManager();
     private Tile[] tiles;
     private Ground ground;
-
-    public Tile[] getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(Tile[] tiles) {
-        this.tiles = tiles;
-    }
        
     public void importDisassembly(String basePalettePath, String palettePath, String graphicsPath){
         System.out.println("com.sfc.sf2.ground.GroundManager.importDisassembly() - Importing disassembly ...");
@@ -57,18 +49,28 @@ public class GroundManager {
         graphicsManager.exportRom(originalRomFilePath, graphicsOffset, GraphicsManager.COMPRESSION_BASIC);
         System.out.println("com.sfc.sf2.ground.GroundManager.exportOriginalRom() - Original ROM exported.");        
     }      
-    
-    public void importPng(String basepath){
-        System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - Importing PNG ...");
-        ground = PngManager.importPng(basepath);
-        tiles = ground.getTiles();
-        graphicsManager.setTiles(tiles);
-        System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - PNG imported.");
-    }
+
     
     public void exportPng(String filepath){
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - Exporting PNG ...");
         PngManager.exportPng(ground, filepath);
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - PNG exported.");       
     }
+    
+    public Tile[] getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(Tile[] tiles) {
+        this.tiles = tiles;
+    }
+
+    public Ground getGround() {
+        return ground;
+    }
+
+    public void setGround(Ground ground) {
+        this.ground = ground;
+    }
+
 }
