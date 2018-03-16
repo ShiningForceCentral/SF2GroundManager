@@ -9,6 +9,7 @@ import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.ground.io.DisassemblyManager;
 import com.sfc.sf2.ground.io.PngManager;
+import com.sfc.sf2.ground.io.GifManager;
 import com.sfc.sf2.palette.PaletteManager;
 import java.awt.Color;
 
@@ -50,11 +51,32 @@ public class GroundManager {
         System.out.println("com.sfc.sf2.ground.GroundManager.exportOriginalRom() - Original ROM exported.");        
     }      
 
+    public void importPng(String basepath){
+        System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - Importing PNG ...");
+        ground = PngManager.importPng(basepath);
+        tiles = ground.getTiles();
+        graphicsManager.setTiles(tiles);
+        System.out.println("com.sfc.sf2.ground.GroundManager.importPng() - PNG imported.");
+    }
     
     public void exportPng(String filepath){
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - Exporting PNG ...");
         PngManager.exportPng(ground, filepath);
         System.out.println("com.sfc.sf2.ground.GroundManager.exportPng() - PNG exported.");       
+    } 
+
+    public void importGif(String basepath){
+        System.out.println("com.sfc.sf2.ground.GroundManager.importGif() - Importing GIF ...");
+        ground = GifManager.importGif(basepath);
+        tiles = ground.getTiles();
+        graphicsManager.setTiles(tiles);
+        System.out.println("com.sfc.sf2.ground.GroundManager.importGif() - GIF imported.");
+    }
+    
+    public void exportGif(String filepath){
+        System.out.println("com.sfc.sf2.ground.GroundManager.exportGif() - Exporting GIF ...");
+        GifManager.exportGif(ground, filepath);
+        System.out.println("com.sfc.sf2.ground.GroundManager.exportGif() - GIF exported.");       
     }
     
     public Tile[] getTiles() {
