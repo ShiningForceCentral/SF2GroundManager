@@ -223,8 +223,8 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel5" pref="499" max="32767" attributes="0"/>
-                              <Component id="jPanel3" alignment="1" pref="499" max="32767" attributes="0"/>
+                              <Component id="jPanel5" pref="500" max="32767" attributes="0"/>
+                              <Component id="jPanel3" alignment="1" pref="500" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -412,7 +412,7 @@
                                     </Component>
                                     <Component class="javax.swing.JTextField" name="jTextField12">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="..\u005cplt_battlescenebasepalette.bin" containsInvalidXMLChars="true"/>
+                                        <Property name="text" type="java.lang.String" value="..\u005cbattlescenebasepalette.bin" containsInvalidXMLChars="true"/>
                                       </Properties>
                                       <Events>
                                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField12ActionPerformed"/>
