@@ -42,39 +42,19 @@ public class GroundLayout extends JPanel {
             imageHeight+=8;
         }
         BufferedImage image;
-        IndexColorModel icm = buildIndexColorModel(tiles[0].getPalette());
-        image = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_BYTE_BINARY, icm);
+        image = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_INT_ARGB);
         Graphics graphics = image.getGraphics();        
 
         for(int blockColumn=0;blockColumn<3;blockColumn++){
                 for(int tileColumn=0;tileColumn<4;tileColumn++){
                     for(int tileLine=0;tileLine<4;tileLine++){
-                        graphics.drawImage(tiles[(blockColumn*16)+(tileColumn*4)+tileLine].getImage(), (blockColumn*4+tileColumn)*8, (tileLine)*8, null);
+                        graphics.drawImage(tiles[(blockColumn*16)+(tileColumn*4)+tileLine].getIndexedColorImage(), (blockColumn*4+tileColumn)*8, (tileLine)*8, null);
                     }
                 }
         }
                             
         return image;
-    }
-    
-    private static IndexColorModel buildIndexColorModel(Color[] colors){
-        byte[] reds = new byte[16];
-        byte[] greens = new byte[16];
-        byte[] blues = new byte[16];
-        byte[] alphas = new byte[16];
-        reds[0] = (byte)0xFF;
-        greens[0] = (byte)0xFF;
-        blues[0] = (byte)0xFF;
-        alphas[0] = 0;
-        for(int i=1;i<16;i++){
-            reds[i] = (byte)colors[i].getRed();
-            greens[i] = (byte)colors[i].getGreen();
-            blues[i] = (byte)colors[i].getBlue();
-            alphas[i] = (byte)0xFF;
-        }
-        IndexColorModel icm = new IndexColorModel(4,16,reds,greens,blues,alphas);
-        return icm;
-    }     
+    }  
     
     @Override
     public Dimension getPreferredSize() {
