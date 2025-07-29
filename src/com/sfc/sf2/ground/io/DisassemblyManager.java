@@ -6,21 +6,16 @@
 package com.sfc.sf2.ground.io;
 
 import com.sfc.sf2.graphics.Tile;
-import com.sfc.sf2.graphics.compressed.BasicGraphicsDecoder;
-import com.sfc.sf2.graphics.compressed.BasicGraphicsEncoder;
 import com.sfc.sf2.ground.Ground;
 import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
 import com.sfc.sf2.graphics.compressed.StackGraphicsEncoder;
+import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import com.sfc.sf2.palette.graphics.PaletteEncoder;
 import java.awt.Color;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +33,7 @@ public class DisassemblyManager {
         Ground ground = null;
         try{
             Tile[] tiles = parseGraphics(basePalettePath, palettePath, graphicsPath);
+            tiles = com.sfc.sf2.graphics.io.DisassemblyManager.reorderTilesSequentially(tiles, 3, 1, 4);
             if(tiles!=null){
                 if(tiles.length==GROUND_TILE_LENGTH){
                    ground = new Ground();   
@@ -55,37 +51,8 @@ public class DisassemblyManager {
         return ground;
     }
     
-    public static void exportDisassembly(Ground ground, String palettePath, String graphicsPath){
-        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportDisassembly() - Exporting disassembly ...");
-        try {
-            Tile[] tileset = ground.getTiles();
-            StackGraphicsEncoder.produceGraphics(tileset);
-            byte[] newGroundFileBytes = StackGraphicsEncoder.getNewGraphicsFileBytes();
-            Path graphicsFilePath = Paths.get(graphicsPath);
-            Files.write(graphicsFilePath,newGroundFileBytes);
-            if(palettePath!=null && !palettePath.isEmpty()){
-                Color[] wholePalette = tileset[0].getPalette();
-                Color[] groundPalette = new Color[3];
-                groundPalette[0] = wholePalette[3];
-                groundPalette[1] = wholePalette[4];
-                groundPalette[2] = wholePalette[8];
-                PaletteEncoder.producePalette(groundPalette);
-                byte[] palette = PaletteEncoder.getNewPaletteFileBytes();
-                Path paletteFilePath = Paths.get(palettePath);
-                Files.write(paletteFilePath,palette);
-            }
-            System.out.println(newGroundFileBytes.length + " bytes into " + graphicsFilePath);                
-        } catch (Exception ex) {
-            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-            System.out.println(ex);
-        }            
-        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportDisassembly() - Disassembly exported.");        
-    }    
-    
     private static Tile[] parseGraphics(String basePalettePath, String palettePath, String graphicsPath){
         Tile[] tiles = null;
-        Color[] palette = null;
         try{
             Path basepalettepath = Paths.get(basePalettePath);
             Path palettepath = Paths.get(palettePath);
@@ -101,28 +68,58 @@ public class DisassemblyManager {
                 basePaletteData[17] = paletteData[5];
                 byte[] graphicsData = Files.readAllBytes(graphicspath);
                 if(paletteData.length == 6 && graphicsData.length>2){
-                    palette = PaletteDecoder.parsePalette(basePaletteData);
-                    palette[0] = new Color(255, 255, 255, 0);
+                    Color[] colors = PaletteDecoder.parsePalette(basePaletteData);
+                    String filename = palettepath.getFileName().toString();
+                    filename = filename.substring(0, filename.lastIndexOf("."));
+                    Palette palette = new Palette(filename, colors);
                     tiles = new StackGraphicsDecoder().decodeStackGraphics(graphicsData, palette);
                 }else{
                     System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.parseGraphics() - File ignored because of too small length (must be a dummy file) " + graphicsData.length + " : " + graphicsPath);
                 }
-            }            
+            }
         }catch(Exception e){
              System.err.println("com.sfc.sf2.ground.io.DisassemblyManager.parseGraphics() - Error while parsing graphics data : "+e);
              e.printStackTrace();
-        } 
+        }
         return tiles;
-    }   
-    
-    private static short getNextWord(byte[] data, int cursor){
-        ByteBuffer bb = ByteBuffer.allocate(2);
-        bb.order(ByteOrder.LITTLE_ENDIAN);
-        bb.put(data[cursor+1]);
-        bb.put(data[cursor]);
-        short s = bb.getShort(0);
-        return s;
     }
-
     
+    public static void exportPalette(Palette palette, String palettePath) {
+        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportPalette() - Exporting palette ...");
+        try {
+            if(palettePath != null && !palettePath.isEmpty()) {
+                Color[] wholePalette = palette.getColors();
+                Color[] groundPalette = new Color[3];
+                groundPalette[0] = wholePalette[3];
+                groundPalette[1] = wholePalette[4];
+                groundPalette[2] = wholePalette[8];
+                PaletteEncoder.producePalette(groundPalette);
+                byte[] bytes = PaletteEncoder.getNewPaletteFileBytes();
+                Path paletteFilePath = Paths.get(palettePath);
+                Files.write(paletteFilePath,bytes);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportPalette() - Palette exported.");        
+    }
+    
+    public static void exportDisassembly(Ground ground, String graphicsPath){
+        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportDisassembly() - Exporting disassembly ...");
+        try {
+            Tile[] tileset = com.sfc.sf2.graphics.io.DisassemblyManager.reorderTilesForDisasssembly(ground.getTiles(), 3, 1, 4);
+            StackGraphicsEncoder.produceGraphics(tileset);
+            byte[] newGroundFileBytes = StackGraphicsEncoder.getNewGraphicsFileBytes();
+            Path graphicsFilePath = Paths.get(graphicsPath);
+            Files.write(graphicsFilePath,newGroundFileBytes);
+            System.out.println(newGroundFileBytes.length + " bytes into " + graphicsFilePath);                
+        } catch (Exception ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println(ex);
+        }            
+        System.out.println("com.sfc.sf2.ground.io.DisassemblyManager.exportDisassembly() - Disassembly exported.");        
+    }
 }

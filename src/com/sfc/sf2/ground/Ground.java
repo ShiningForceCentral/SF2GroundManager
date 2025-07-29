@@ -6,7 +6,7 @@
 package com.sfc.sf2.ground;
 
 import com.sfc.sf2.graphics.Tile;
-import java.awt.Color;
+import com.sfc.sf2.palette.Palette;
 
 /**
  *
@@ -34,4 +34,10 @@ public class Ground {
         this.tiles = tiles;
     }
     
+    public Palette getPalette() {
+        if (tiles == null || tiles.length == 0) {
+            return null;
+        }
+        return tiles[0].getPalette();
+    }
 }
